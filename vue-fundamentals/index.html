@@ -9,39 +9,57 @@
   <script src="https://unpkg.com/vue@next"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    footer {
+      position: fixed;
+      height: 3rem;
+      width: 100%;
+      bottom: 0;
+    }
+
+    footer>h5 {
+      color: white
+    }
+  </style>
 </head>
 
 <body>
-  <div id="app" class="container">
-    <h1>{{ titleCase(title) }}</h1>
-    <h2 v-if="status">Active account</h2>
-    <h2 v-else>Inactive account</h2>
+  <div id="app">
+    <div class="main ms-2 me-2">
+      <h1>{{ titleCase(title) }}</h1>
+      <h2 v-if="status">Active account</h2>
+      <h2 v-else>Inactive account</h2>
 
-    <hr>
+      <hr>
 
-    <h2 class="bg-dark" :class="textColor">
-      Available balance:
-      <span v-if="amount <= 0" style="color:red">{{ amount }}€</span>
-      <span v-else-if="amount <= 100">{{ amount }}€</span>
-      <span v-else style="color:green">{{ amount }}€</span>
-    </h2>
-    <a :href="bankUrl" target="_blank" rel="noopener noreferrer">Go to website</a>
+      <h2 class="bg-dark" :class="textColor">
+        Available balance:
+        <span v-if="amount <= 0" style="color:red">{{ amount }}€</span>
+        <span v-else-if="amount <= 100">{{ amount }}€</span>
+        <span v-else style="color:green">{{ amount }}€</span>
+      </h2>
+      <a :href="bankUrl" target="_blank" rel="noopener noreferrer">Go to website</a>
 
-    <hr>
+      <hr>
 
-    <h2>Available services</h2>
-    <ul>
-      <li v-for="(item, index) in transactions" :key="index">{{ titleCase(item) }}</li>
-    </ul>
+      <h2>Available services</h2>
+      <ul>
+        <li v-for="(item, index) in transactions" :key="index">{{ titleCase(item) }}</li>
+      </ul>
 
-    <hr>
+      <hr>
 
-    <button @click="decreaseBalance(50)" :disabled="disabled">- Decrease balance</button>
-    <button @click="addBalance(50)">+ Add balance</button>
+      <button @click="decreaseBalance(50)" :disabled="disabled">- Decrease balance</button>
+      <button @click="addBalance(50)">+ Add balance</button>
+    </div>
+    <h1>
+
+    <the-footer />
 
   </div>
 
   <script src="./main.js"></script>
+  <script src="./components/TheFooter.js"></script>
   <script src="./mountApp.js"></script>
 </body>
 

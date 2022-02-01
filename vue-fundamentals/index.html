@@ -13,13 +13,13 @@
 
 <body>
   <div id="app" class="container">
-    <h1>{{ title }}</h1>
+    <h1>{{ titleCase(title) }}</h1>
     <h2 v-if="status">Active account</h2>
     <h2 v-else>Inactive account</h2>
 
     <hr>
 
-    <h2 class="bg-dark" :class="[amount > 0 ? 'text-success' : 'text-danger']">
+    <h2 class="bg-dark" :class="textColor">
       Available balance:
       <span v-if="amount <= 0" style="color:red">{{ amount }}€</span>
       <span v-else-if="amount <= 100">{{ amount }}€</span>
@@ -31,7 +31,7 @@
 
     <h2>Available services</h2>
     <ul>
-      <li v-for="(item, index) in transactions" :key="index">{{ item }}</li>
+      <li v-for="(item, index) in transactions" :key="index">{{ titleCase(item) }}</li>
     </ul>
 
     <hr>

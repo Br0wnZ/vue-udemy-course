@@ -1,5 +1,7 @@
 const app = Vue.createApp({
   data: () => ({
-    title: 'Hello world!'
+    title: 'My Bank',
+    bankUrl: 'http://javimoreno.epizy.com/#/',
+    amount: 100,
   })
 })

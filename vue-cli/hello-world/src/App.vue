@@ -2,11 +2,13 @@
   <div>
     <img alt="Vue logo" src="./assets/logo.png" />
     <Title :text="title"/>
+    <Account />
   </div>
 </template>
 
 <script>
 import Title from '@/components/Title.vue'
+import Account from '@/components/Account.vue'
 
 export default {
   name: 'App',
@@ -14,6 +16,7 @@ export default {
     title: 'My Bank 2.0'
   }),
   components: {
+    Account,
     Title
   }
 }

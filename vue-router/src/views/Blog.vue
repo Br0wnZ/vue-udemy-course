@@ -4,9 +4,10 @@
 
     <ul>
       <li v-for="item in items" :key="item.id">
-        {{ item.id }} {{ item.title }}
+        <router-link :to="`/blog/${item.id}`">{{ item.title }}</router-link>
       </li>
     </ul>
+
   </div>
 </template>
 
@@ -30,9 +31,7 @@ export default {
       try {
         const data = await fetch('https://jsonplaceholder.typicode.com/posts')
         this.items = await data.json()
-        console.log(this.items[0]);
       } catch (error) {
-        console.log(error);
       }
     }
   },

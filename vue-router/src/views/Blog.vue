@@ -6,6 +6,7 @@
 
 <script>
 import Title from '@/components/Title.vue'
+
 export default {
   name: 'blog',
   components: {

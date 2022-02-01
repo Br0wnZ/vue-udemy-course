@@ -12,13 +12,27 @@
     <h1>{{ title }}</h1>
     <h2 v-if="status">Active account</h2>
     <h2 v-else>Inactive account</h2>
+
     <hr>
+
     <h2>Available balance: 
       <span v-if="amount <= 0" style="color:red">{{ amount }}€</span>
       <span v-else-if="amount == 100">{{ amount }}€</span>
       <span v-else style="color:green">{{ amount }}€</span>
     </h2>
     <a :href="bankUrl" target="_blank" rel="noopener noreferrer">Go to website</a>
+    
+    <hr>
+
+    <h2>Available services</h2>
+    <ul>
+      <li v-for="(item, index) in transactions" :key="index">{{ item }}</li>
+    </ul>
+
+    <hr>
+
+    <button @click="addBalance">Add balance</button>
+
   </div>
 
   <script src="./main.js"></script>

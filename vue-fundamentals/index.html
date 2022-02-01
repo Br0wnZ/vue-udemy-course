@@ -17,7 +17,7 @@
 
     <h2>Available balance: 
       <span v-if="amount <= 0" style="color:red">{{ amount }}€</span>
-      <span v-else-if="amount == 100">{{ amount }}€</span>
+      <span v-else-if="amount <= 100">{{ amount }}€</span>
       <span v-else style="color:green">{{ amount }}€</span>
     </h2>
     <a :href="bankUrl" target="_blank" rel="noopener noreferrer">Go to website</a>
@@ -31,7 +31,8 @@
 
     <hr>
 
-    <button @click="addBalance">Add balance</button>
+    <button @click="decreaseBalance" :disabled="disabled">- Decrease balance</button>
+    <button @click="addBalance">+ Add balance</button>
 
   </div>
 

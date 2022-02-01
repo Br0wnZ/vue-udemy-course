@@ -1,17 +1,22 @@
 <template>
-  <Title :title="aboutTitle" />
+
+  <Title :title="blogTitle" />
+  
 </template>
 
 <script>
 import Title from '@/components/Title.vue'
-
 export default {
-  name: 'about',
+  name: 'blog',
   components: {
     Title
   },
   data: () => ({
-    aboutTitle: 'About Page'
+    blogTitle: 'Blog'
   })
 }
 </script>
+
+<style>
+
+</style>

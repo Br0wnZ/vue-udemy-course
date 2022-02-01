@@ -3,5 +3,6 @@ const app = Vue.createApp({
     title: 'My Bank',
     bankUrl: 'http://javimoreno.epizy.com/#/',
     amount: 100,
+    status: true
   })
 })

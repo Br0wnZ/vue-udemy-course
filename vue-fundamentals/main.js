@@ -10,19 +10,20 @@ const app = Vue.createApp({
       "Wire transfer"
     ],
     alertMessage: 'Your balance is 0',
+    decreaseMessage: 'You can do it this transaction. Your balance cant no be under 0.',
     disabled: false
   }),
   methods: {
-    addBalance() {
-      this.amount += 50
+    addBalance(amount) {
+      this.amount += amount
       this.disabled = false
     },
-    decreaseBalance() {
-      this.amount <= 0 ? this.showAlert() : this.amount -= 50
+    decreaseBalance(amount) {
+      this.amount <= 0 
+        ? (this.disabled = true, this.showAlert(this.alertMessage))
+        : this.amount -= amount 
     },
-    showAlert() {
-      this.disabled = true
-      alert(this.alertMessage)
-    } 
+    showAlert: (message) => alert(message)
+    
   },
 })

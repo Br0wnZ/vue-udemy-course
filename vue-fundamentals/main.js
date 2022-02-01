@@ -11,9 +11,10 @@ const app = Vue.createApp({
     ],
     alertMessage: 'Your balance is 0',
     decreaseMessage: 'You can do it this transaction. Your balance cant no be under 0.',
-    disabled: false
+    disabled: false,
   }),
   computed: {
+    currentYear: () => new Date().getFullYear(),
     textColor() {
       return this.amount > 0 ? 'text-success' : 'text-danger'
     }

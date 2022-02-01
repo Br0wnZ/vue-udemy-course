@@ -1,11 +1,17 @@
 <template>
-  <button>{{ buttonText }} amount</button>
+  <button :disabled="disabled" @click="action">{{ buttonText }} amount</button>
 </template>
 
 <script>
   export default {
     props: {
-      buttonText: String
+      buttonText: String,
+      disabled: Boolean
+    }, 
+    methods: {
+      action() {
+        this.$emit('action')
+      }
     }  
   }
 </script>

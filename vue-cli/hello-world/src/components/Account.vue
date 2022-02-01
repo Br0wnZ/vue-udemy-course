@@ -10,8 +10,13 @@
       <li v-for="(item, index) in transactions" :key="index">{{ titleCase(item) }}</li>
     </ul>
 
-    <Actions :buttonText="texts.increaseText"/>
-    <Actions :buttonText="texts.decreaseText"/>
+    <Actions 
+      @action="decrease" 
+      :buttonText="texts.decreaseText" 
+      :disabled="disabled"/>
+    <Actions 
+      @action="increase" 
+      :buttonText="texts.increaseText"/>
   </div>
 </template>
 
@@ -31,7 +36,9 @@ export default {
       inactive: 'Inactive Account',
       increaseText: '+ Increase',
       decreaseText: '- Decrease',
-    }
+      decreaseErrorText: 'Your bank account cannot be in the red'
+    },
+    disabled: false
   }),
   components: {
     Actions
@@ -42,10 +49,13 @@ export default {
         (word.charAt(0).toUpperCase() + word.slice(1))).join(' ')
     },
     increase() {
+      this.disabled = false
       this.amount += 100
     },
-    decrease() {
-      this.amount -= 100
+    decrease(amount = 100) {
+      this.amount - amount < 0
+        ? (this.disabled = true, alert(this.texts.decreaseErrorText))
+        : this.amount -= 100
     },
   },
 }

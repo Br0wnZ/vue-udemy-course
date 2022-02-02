@@ -2,12 +2,12 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <h1 :style="counterColor">Counter: {{ counter }}</h1>
-    <button @click="increase">+ Increase</button>
+    <button @click="increaseAction">+ Increase</button>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: 'Home',
@@ -20,7 +20,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['increase'])
+    ...mapMutations(['increase']),
+    ...mapActions(['increaseAction'])
   },
 }
 </script>

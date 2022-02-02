@@ -14,7 +14,6 @@ export default createStore({
   },
   mutations: {
     set(state, payload) {
-      console.log("🚀 ~ file: index.js ~ line 17 ~ set ~ payload", payload)
       state.tasks.push(payload)
       state.task = {
         id: '',
@@ -24,7 +23,6 @@ export default createStore({
         status: '',
         number: 0
       }
-      console.log(state.tasks);
     }
   },
   actions: {

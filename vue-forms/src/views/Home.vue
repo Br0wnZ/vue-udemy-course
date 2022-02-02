@@ -37,6 +37,16 @@
           <label class="form-check-label" :value="option.id" :for="option.id">{{ option.name }}</label>
         </div>
       </div>
+
+      <div class="mt-2">
+        <input
+          class="form-control my-2"
+          type="number"
+          name="number"
+          id="number"
+          v-model.number="task.number"
+        />
+      </div>
     </form>
 
     <hr />
@@ -54,7 +64,8 @@ export default {
       name: '',
       description: '',
       categories: [],
-      status: ''
+      status: '',
+      number: 0
     },
     checkOptions: [
       { name: 'JavaScript', value: 'javascript' },

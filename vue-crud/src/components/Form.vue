@@ -65,7 +65,7 @@
 import { mapState, mapActions } from 'vuex';
 import Uid from 'short-unique-id'
 
-const uid = new Uid({ length: 10 });
+const uid = new Uid({ length: 5 });
 export default {
   name: 'Form',
   data: () => ({

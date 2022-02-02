@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <h1>Home page</h1>
+    <form>
+      <input type="text" class="form-control my-2" placeholder="Task Name" v-model="task.name" />
+    </form>
+    <p>{{ task }}</p>
   </div>
 </template>
 
@@ -8,6 +11,12 @@
 
 export default {
   name: 'Home',
+  data: () => ({
+    task: {
+      name: '',
+      description: ''
+    }
+  }),
   components: {
   }
 }

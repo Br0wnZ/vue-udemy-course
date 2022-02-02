@@ -17,18 +17,23 @@
         <td>{{ task.categories.join(', ') }}</td>
         <td>{{ task.status }}</td>
         <td>{{ task.number }}</td>
-        <td></td>
+        <td>
+          <button @click="deleteTask(task.id)" type="button" class="btn btn-outline-danger">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   name: 'TaskList',
   computed: {
     ...mapState(['tasks'])
-  }
+  },
+  methods: {
+    ...mapActions(['deleteTask'])
+  },
 }
 </script>

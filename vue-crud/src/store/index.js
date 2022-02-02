@@ -23,11 +23,17 @@ export default createStore({
         status: '',
         number: 0
       }
+    },
+    delete(state, payload) {
+      state.tasks = state.tasks.filter(el => el.id !== payload)
     }
   },
   actions: {
     addTask({commit}, task) {
       commit('set', task)
+    },
+    deleteTask({commit}, id) {
+      commit('delete', id)
     }
   },
   modules: {

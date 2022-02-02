@@ -3,15 +3,39 @@
     <form>
       <input type="text" class="form-control my-2" placeholder="Task Name" v-model="task.name" />
 
-      <div class="form-check text-start" v-for="(option, index) in checkOptions" :key="index">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          :value="option.value"
-          :id="`check${index}`"
-          v-model="task.categories"
-        />
-        <label class="form-check-label" :for="`check${index}`">{{ option.name }}</label>
+      <div class="mt-2 text-start">
+        <div
+          class="form-check form-check-inline"
+          v-for="(option, index) in checkOptions"
+          :key="index"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            :value="option.value"
+            :id="`check${index}`"
+            v-model="task.categories"
+          />
+          <label class="form-check-label" :for="`check${index}`">{{ option.name }}</label>
+        </div>
+      </div>
+
+      <div class="mt-2 text-start">
+        <div
+          class="form-check form-check-inline text-start"
+          v-for="(option, index) in radioOptions"
+          :key="index"
+        >
+          <input
+            class="form-check-input"
+            :value="option.id"
+            type="radio"
+            :id="option.id"
+            name="importance"
+            v-model="task.status"
+          />
+          <label class="form-check-label" :value="option.id" :for="option.id">{{ option.name }}</label>
+        </div>
       </div>
     </form>
 
@@ -29,11 +53,16 @@ export default {
     task: {
       name: '',
       description: '',
-      categories: []
+      categories: [],
+      status: ''
     },
     checkOptions: [
       { name: 'JavaScript', value: 'javascript' },
       { name: 'NodeJS', value: 'nodejs' },
+    ],
+    radioOptions: [
+      { name: 'Priority', id: 'priority' },
+      { name: 'Normal', id: 'normal' },
     ]
   }),
   components: {

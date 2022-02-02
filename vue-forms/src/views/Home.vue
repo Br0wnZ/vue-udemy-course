@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <form>
-      <input type="text" class="form-control my-2" placeholder="Task Name" v-model="task.name" />
+    <form @submit.prevent="handleSubmit">
+      <input type="text" class="form-control my-2" placeholder="Task Name" v-model.trim="task.name" />
 
       <div class="mt-2 text-start">
         <div
@@ -47,6 +47,10 @@
           v-model.number="task.number"
         />
       </div>
+
+      <div class="mt-2 d-grid">
+        <button type="submit" class="btn btn-dark btn-block">Submit</button>
+      </div>
     </form>
 
     <hr />
@@ -76,7 +80,10 @@ export default {
       { name: 'Normal', id: 'normal' },
     ]
   }),
-  components: {
-  }
+  methods: {
+    handleSubmit() {
+      console.log(this.task)
+    }
+  },
 }
 </script>

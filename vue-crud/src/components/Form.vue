@@ -62,17 +62,13 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+import Uid from 'short-unique-id'
+
+const uid = new Uid({ length: 10 });
 export default {
   name: 'Form',
   data: () => ({
-    task: {
-      id: '',
-      name: '',
-      description: '',
-      categories: [],
-      status: '',
-      number: 0
-    },
     checkOptions: [
       { name: 'JavaScript', value: 'javascript' },
       { name: 'NodeJS', value: 'nodejs' },
@@ -83,20 +79,15 @@ export default {
     ]
   }),
   computed: {
+    ...mapState(['task']),
     disabled() {
       return this.task.name.trim() === ''
     }
   },
   methods: {
+    ...mapActions(['addTask']),
     handleSubmit() {
-      console.log(this.task)
-      this.task = {
-        name: '',
-        description: '',
-        categories: [],
-        status: '',
-        number: 0
-      }
+      this.addTask({ ...this.task, id: uid() })
     }
   },
 }

@@ -18,7 +18,18 @@
         <td>{{ task.status }}</td>
         <td>{{ task.number }}</td>
         <td>
-          <button @click="deleteTask(task.id)" type="button" class="btn btn-outline-danger">Delete</button>
+          <button 
+            @click="deleteTask(task.id)" 
+            type="button" 
+            class="btn btn-outline-danger">
+            Delete
+          </button>
+          <button 
+            @click="editTask(task)" 
+            type="button" 
+            class="btn btn-outline-info">
+            Edit
+          </button>
         </td>
       </tr>
     </tbody>
@@ -33,7 +44,7 @@ export default {
     ...mapState(['tasks'])
   },
   methods: {
-    ...mapActions(['deleteTask'])
+    ...mapActions(['deleteTask', 'editTask'])
   },
 }
 </script>

@@ -55,7 +55,7 @@
       </div>
 
       <div class="mt-2 d-grid">
-        <button type="submit" class="btn btn-dark btn-block" :disabled="disabled">Submit</button>
+        <button type="submit" class="btn btn-dark btn-block" :disabled="disabled">{{ isEditing ? 'Edit' : 'Save'}}</button>
       </div>
     </div>
   </form>
@@ -79,7 +79,7 @@ export default {
     ]
   }),
   computed: {
-    ...mapState(['task']),
+    ...mapState(['task', 'isEditing']),
     disabled() {
       return this.task.name.trim() === ''
     }
@@ -87,7 +87,7 @@ export default {
   methods: {
     ...mapActions(['addTask']),
     handleSubmit() {
-      this.addTask({ ...this.task, id: uid() })
+      this.addTask({ ...this.task, id: !this.isEditing ? uid() : this.task.id })
     }
   },
 }

@@ -32,6 +32,10 @@ export default createStore({
       state.isEditing = false
     },
     delete(state, payload) {
+      if (state.isEditing) {
+        alert('The task is being edited. cannot be deleted')
+        return
+      }
       state.tasks = state.tasks.filter(el => el.id !== payload)
     },
     edit(state, payload) {

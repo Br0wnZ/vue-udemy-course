@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <form @submit.prevent="handleSubmit">
-      <input type="text" class="form-control my-2" placeholder="Task Name" v-model.trim="task.name" />
+      <input
+        type="text"
+        class="form-control my-2"
+        placeholder="Task Name"
+        v-model.trim="task.name"
+        required
+      />
 
       <div class="mt-2 text-start">
         <div
@@ -49,7 +55,7 @@
       </div>
 
       <div class="mt-2 d-grid">
-        <button type="submit" class="btn btn-dark btn-block">Submit</button>
+        <button type="submit" class="btn btn-dark btn-block" :disabled="disabled">Submit</button>
       </div>
     </form>
 
@@ -80,9 +86,21 @@ export default {
       { name: 'Normal', id: 'normal' },
     ]
   }),
+  computed: {
+    disabled() {
+      return this.task.name.trim() === ''
+    }
+  },
   methods: {
     handleSubmit() {
       console.log(this.task)
+      this.task = {
+        name: '',
+        description: '',
+        categories: [],
+        status: '',
+        number: 0
+      }
     }
   },
 }

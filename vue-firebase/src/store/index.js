@@ -16,7 +16,7 @@ export default createStore({
   mutations: {
     async loadTasks(state) {
       try {
-        const res = await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks.json`)
+        const res = await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks.json`)
         const data = await res.json()
         for (const id in data) {
           state.tasks.push(data[id])
@@ -27,7 +27,7 @@ export default createStore({
     },
     async set(state, payload) {
       try {
-        await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks/${payload.id}.json`, {
+        await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks/${payload.id}.json`, {
           method: state.isEditing ? 'PATCH' : 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export default createStore({
         return
       }
       try {
-        await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks/${payload}.json`, {
+        await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks/${payload}.json`, {
           method: 'DELETE'
         })
         state.tasks = state.tasks.filter((el) => el.id !== payload)

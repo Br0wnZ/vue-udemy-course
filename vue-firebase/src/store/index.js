@@ -35,7 +35,7 @@ export default createStore({
 
       try {
         await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks/${payload.id}.json`, {
-          method: 'PUT',
+          method: state.isEditing ? 'PATCH' : 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },

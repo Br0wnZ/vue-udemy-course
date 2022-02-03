@@ -16,23 +16,16 @@ export default createStore({
   mutations: {
     async loadTasks(state) {
       try {
-        const res  =await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks.json`)
+        const res = await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks.json`)
         const data = await res.json()
         for (const id in data) {
-          state.tasks.push(data[id])            
+          state.tasks.push(data[id])
         }
       } catch (error) {
         console.error(error)
       }
     },
     async set(state, payload) {
-      if (state.isEditing) {
-        const i = state.tasks.indexOf(state.tasks.filter((el) => el.id === payload.id)[0])
-        state.tasks[i] = payload
-      } else {
-        state.tasks.push(payload)
-      }
-
       try {
         await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks/${payload.id}.json`, {
           method: state.isEditing ? 'PATCH' : 'PUT',
@@ -41,6 +34,12 @@ export default createStore({
           },
           body: JSON.stringify(payload)
         })
+        if (state.isEditing) {
+          const i = state.tasks.indexOf(state.tasks.filter((el) => el.id === payload.id)[0])
+          state.tasks[i] = payload
+        } else {
+          state.tasks.push(payload)
+        }
       } catch (error) {
         console.error(error)
       }
@@ -55,12 +54,19 @@ export default createStore({
       }
       state.isEditing = false
     },
-    delete(state, payload) {
+    async delete(state, payload) {
       if (state.isEditing) {
         alert('The task is being edited. cannot be deleted')
         return
       }
-      state.tasks = state.tasks.filter((el) => el.id !== payload)
+      try {
+        await fetch(`https://vue-api-b3e91-default-rtdb.firebaseio.com/tasks/${payload}.json`, {
+          method: 'DELETE'
+        })
+        state.tasks = state.tasks.filter((el) => el.id !== payload)
+      } catch (error) {
+        console.error(error)
+      }
     },
     edit(state, payload) {
       state.isEditing = true

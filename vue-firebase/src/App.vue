@@ -16,10 +16,10 @@ export default {
     TheNavbar
   },
   created() {
-    this.loadLocalStorage()
+    this.load()
   },
   methods: {
-    ...mapActions(['loadLocalStorage'])
+    ...mapActions(['load'])
   },
 }
 </script>

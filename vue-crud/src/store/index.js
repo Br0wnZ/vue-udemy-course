@@ -16,7 +16,7 @@ export default createStore({
   mutations: {
     set(state, payload) {
       if (state.isEditing) {
-        const i = state.tasks.indexOf(state.tasks.filter(el => el.id === payload.id)[0])
+        const i = state.tasks.indexOf(state.tasks.filter((el) => el.id === payload.id)[0])
         state.tasks[i] = payload
       } else {
         state.tasks.push(payload)
@@ -29,6 +29,7 @@ export default createStore({
         status: '',
         number: 0
       }
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
       state.isEditing = false
     },
     delete(state, payload) {
@@ -36,11 +37,15 @@ export default createStore({
         alert('The task is being edited. cannot be deleted')
         return
       }
-      state.tasks = state.tasks.filter(el => el.id !== payload)
+      state.tasks = state.tasks.filter((el) => el.id !== payload)
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
     },
     edit(state, payload) {
       state.isEditing = true
       state.task = { ...payload }
+    },
+    load(state, payload) {
+      state.tasks = payload
     }
   },
   actions: {
@@ -52,9 +57,15 @@ export default createStore({
     },
     editTask({ commit }, task) {
       commit('edit', task)
+    },
+    loadLocalStorage({ commit }) {
+      const localTasks = localStorage.getItem('tasks')
+      if (localTasks) {
+        commit('load', JSON.parse(localTasks))
+        return
+      }
+      localStorage.setItem('tasks', JSON.stringify([]))
     }
-
   },
-  modules: {
-  }
+  modules: {}
 })

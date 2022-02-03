@@ -9,11 +9,18 @@
 
 <script>
 import TheNavbar from '@/components/TheNavbar.vue'
+import { mapActions } from 'vuex';
 
 export default {
   components: {
     TheNavbar
-  }
+  },
+  created() {
+    this.loadLocalStorage()
+  },
+  methods: {
+    ...mapActions(['loadLocalStorage'])
+  },
 }
 </script>
 

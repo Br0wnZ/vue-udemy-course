@@ -14,7 +14,7 @@
       <tr v-for="task in tasks" :key="task.id">
         <th scope="row">{{ task.id }}</th>
         <td>{{ $filters.titleCase(task.name) }}</td>
-        <td>{{ $filters.titleCase(task.categories.join(', ')) }}</td>
+        <td>{{ $filters.titleCase(task?.categories?.join(', ')) }}</td>
         <td>{{ $filters.titleCase(task.status) }}</td>
         <td>{{ task.number }}</td>
         <td>
@@ -42,6 +42,9 @@ export default {
   name: 'TaskList',
   computed: {
     ...mapState(['tasks'])
+  },
+  created() {
+    console.log(this.tasks);
   },
   methods: {
     ...mapActions(['deleteTask', 'editTask'])

@@ -18,11 +18,14 @@ export default createStore({
       try {
         const res = await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks.json`)
         const data = await res.json()
+        if (data.error) {
+          return
+        }
         for (const id in data) {
           state.tasks.push(data[id])
         }
       } catch (error) {
-        console.error(error)
+        console.error({error})
       }
     },
     async set(state, payload) {

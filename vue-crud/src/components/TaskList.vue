@@ -13,9 +13,9 @@
     <tbody>
       <tr v-for="task in tasks" :key="task.id">
         <th scope="row">{{ task.id }}</th>
-        <td>{{ task.name }}</td>
-        <td>{{ task.categories.join(', ') }}</td>
-        <td>{{ task.status }}</td>
+        <td>{{ $filters.titleCase(task.name) }}</td>
+        <td>{{ $filters.titleCase(task.categories.join(', ')) }}</td>
+        <td>{{ $filters.titleCase(task.status) }}</td>
         <td>{{ task.number }}</td>
         <td>
           <button 

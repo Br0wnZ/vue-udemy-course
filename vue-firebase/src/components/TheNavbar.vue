@@ -18,6 +18,12 @@
         <span class="navbar-text">
           <router-link to="/" class="nav-link active">Task</router-link>
         </span>
+        <span class="navbar-text">
+          <router-link to="/login" class="nav-link active">Login</router-link>
+        </span>
+        <span class="navbar-text">
+          <router-link to="/signup" class="nav-link active">Signup</router-link>
+        </span>
       </div>
     </div>
   </nav>

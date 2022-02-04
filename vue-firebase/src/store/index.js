@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import router from '../router'
 
 export default createStore({
   state: {
@@ -16,7 +17,6 @@ export default createStore({
   },
   mutations: {
     setUser(state, payload) {
-      console.log(payload)
       state.user = payload
     },
     async loadTasks(state) {
@@ -94,25 +94,48 @@ export default createStore({
     load({ commit }) {
       commit('loadTasks')
     },
-    async signup({ commit }, user) {
+    async signup({ commit }, { email, password }) {
       try {
         const res = await fetch(
           `${process.env.VUE_APP_FIREBASE_AUTH_URL}?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,
           {
             method: 'POST',
             body: JSON.stringify({
-              email: user.email,
-              password: user.password,
+              email,
+              password,
               returnSecureToken: true
             })
           }
         )
         const userDB = await res.json()
         if (userDB.error) {
-          console.error(userDB.error)
-          return
+          return console.error(userDB.error)
         }
         commit('setUser', userDB)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async login({ commit }, { email, password }) {
+      console.log('🚀 ~ file: index.js ~ line 121 ~ login ~ { email, password }', {
+        email,
+        password
+      })
+      try {
+        const res = await fetch(
+          `${process.env.VUE_APP_FIREBASE_LOGIN_URL}?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({ email, password, returnSecureToken: true })
+          }
+        )
+        const userDB = await res.json()
+        if (userDB.error) {
+          return console.log(error);
+        }
+        console.log('🚀 ~ file: index.js ~ line 125 ~ login ~ userDB', userDB)
+        commit('setUser', userDB)
+        router.push('/')
       } catch (error) {
         console.log(error)
       }

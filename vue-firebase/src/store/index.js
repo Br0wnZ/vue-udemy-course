@@ -100,6 +100,9 @@ export default createStore({
       commit('edit', task)
     },
     load({ commit }) {
+      if (localStorage.getItem('user')) {
+        commit('setUser', JSON.parse(localStorage.getItem('user')))
+      }
       commit('loadTasks')
     },
     async signup({ commit }, { email, password }) {
@@ -139,12 +142,14 @@ export default createStore({
         }
         commit('setUser', userDB)
         router.push('/')
+        localStorage.setItem('user', JSON.stringify(userDB))
       } catch (error) {
         console.log(error)
       }
     },
     logout({commit}) {
       commit('setUser', null)
+      localStorage.removeItem('user')
       router.push('/login')
     }
   },

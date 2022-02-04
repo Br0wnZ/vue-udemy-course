@@ -43,11 +43,8 @@ export default {
   computed: {
     ...mapState(['tasks'])
   },
-  created() {
-    this.load()
-  },
   methods: {
-    ...mapActions(['deleteTask', 'editTask', 'load'])
+    ...mapActions(['deleteTask', 'editTask'])
   },
 }
 </script>

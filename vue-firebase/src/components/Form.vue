@@ -9,7 +9,7 @@
         required
       />
 
-      <div class="mt-2 text-start">
+      <div class="mt-2">
         <div
           class="form-check form-check-inline"
           v-for="(option, index) in checkOptions"
@@ -26,9 +26,9 @@
         </div>
       </div>
 
-      <div class="mt-2 text-start">
+      <div class="mt-2">
         <div
-          class="form-check form-check-inline text-start"
+          class="form-check form-check-inline"
           v-for="(option, index) in radioOptions"
           :key="index"
         >

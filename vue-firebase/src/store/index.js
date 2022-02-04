@@ -20,36 +20,36 @@ export default createStore({
       state.user = payload
     },
     async loadTasks(state) {
-      try {
-        const res = await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks.json`)
-        const data = await res.json()
-        if (data.error) {
-          return
-        }
-        for (const id in data) {
-          state.tasks.push(data[id])
-        }
-      } catch (error) {
-        console.error({ error })
+      if (!state.user) {
+        return
+      }
+      const res = await fetch(
+        `${process.env.VUE_APP_FIREBASE_URL}/tasks/${state.user.localId}.json?auth=${state.user.idToken}`
+      )
+      const data = await res.json()
+      if (data && data.error) {
+        return
+      }
+      for (const id in data) {
+        state.tasks.push(data[id])
       }
     },
     async set(state, payload) {
-      try {
-        await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks/${payload.id}.json`, {
+      await fetch(
+        `${process.env.VUE_APP_FIREBASE_URL}/tasks/${state.user.localId}/${payload.id}.json?auth=${state.user.idToken}`,
+        {
           method: state.isEditing ? 'PATCH' : 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
-        })
-        if (state.isEditing) {
-          const i = state.tasks.indexOf(state.tasks.filter((el) => el.id === payload.id)[0])
-          state.tasks[i] = payload
-        } else {
-          state.tasks.push(payload)
         }
-      } catch (error) {
-        console.error(error)
+      )
+      if (state.isEditing) {
+        const i = state.tasks.indexOf(state.tasks.filter((el) => el.id === payload.id)[0])
+        state.tasks[i] = payload
+      } else {
+        state.tasks.push(payload)
       }
 
       state.task = {
@@ -68,9 +68,12 @@ export default createStore({
         return
       }
       try {
-        await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks/${payload}.json`, {
-          method: 'DELETE'
-        })
+        await fetch(
+          `${process.env.VUE_APP_FIREBASE_URL}/tasks/${state.user.localId}/${payload}.json?auth=${state.user.idToken}`,
+          {
+            method: 'DELETE'
+          }
+        )
         state.tasks = state.tasks.filter((el) => el.id !== payload)
       } catch (error) {
         console.error(error)
@@ -117,10 +120,6 @@ export default createStore({
       }
     },
     async login({ commit }, { email, password }) {
-      console.log('🚀 ~ file: index.js ~ line 121 ~ login ~ { email, password }', {
-        email,
-        password
-      })
       try {
         const res = await fetch(
           `${process.env.VUE_APP_FIREBASE_LOGIN_URL}?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,
@@ -131,9 +130,8 @@ export default createStore({
         )
         const userDB = await res.json()
         if (userDB.error) {
-          return console.log(error);
+          return console.log(error)
         }
-        console.log('🚀 ~ file: index.js ~ line 125 ~ login ~ userDB', userDB)
         commit('setUser', userDB)
         router.push('/')
       } catch (error) {

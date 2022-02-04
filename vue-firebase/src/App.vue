@@ -9,17 +9,14 @@
 
 <script>
 import TheNavbar from '@/components/TheNavbar.vue'
-import { mapActions } from 'vuex';
 
 export default {
   components: {
     TheNavbar
   },
-  created() {
-    this.load()
+  mounted() {
   },
   methods: {
-    ...mapActions(['load'])
   },
 }
 </script>

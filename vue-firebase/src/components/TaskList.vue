@@ -44,10 +44,10 @@ export default {
     ...mapState(['tasks'])
   },
   created() {
-    console.log(this.tasks);
+    this.load()
   },
   methods: {
-    ...mapActions(['deleteTask', 'editTask'])
+    ...mapActions(['deleteTask', 'editTask', 'load'])
   },
 }
 </script>

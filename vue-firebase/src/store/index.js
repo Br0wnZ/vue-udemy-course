@@ -15,6 +15,11 @@ export default createStore({
     user: null,
     isEditing: false
   },
+  getters: {
+    isLogedIn(state) {
+      return !!state.user
+    }
+  },
   mutations: {
     setUser(state, payload) {
       state.user = payload
@@ -137,6 +142,10 @@ export default createStore({
       } catch (error) {
         console.log(error)
       }
+    },
+    logout({commit}) {
+      commit('setUser', null)
+      router.push('/login')
     }
   },
   modules: {}

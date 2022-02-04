@@ -2,7 +2,7 @@
   <div>
     <fieldset>
       <legend>SignUp</legend>
-      <form>
+      <form ref="form" @submit.prevent="onSubmit">
         <div class="mb-3">
           <input
             class="form-control"
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data: () => ({
     email: '',
@@ -62,6 +63,13 @@ export default {
         return true
       }
     }
-  }
+  },
+  methods: {
+    ...mapActions(['signup']),
+    onSubmit() {
+      this.signup({ email: this.email, password: this.pass1 })
+      this.$refs.form.reset()
+    }
+  },
 }
 </script>

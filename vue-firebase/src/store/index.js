@@ -11,9 +11,14 @@ export default createStore({
       status: '',
       number: 0
     },
+    user: null,
     isEditing: false
   },
   mutations: {
+    setUser(state, payload) {
+      console.log(payload)
+      state.user = payload
+    },
     async loadTasks(state) {
       try {
         const res = await fetch(`${process.env.VUE_APP_FIREBASE_URL}/tasks.json`)
@@ -25,7 +30,7 @@ export default createStore({
           state.tasks.push(data[id])
         }
       } catch (error) {
-        console.error({error})
+        console.error({ error })
       }
     },
     async set(state, payload) {
@@ -88,6 +93,29 @@ export default createStore({
     },
     load({ commit }) {
       commit('loadTasks')
+    },
+    async signup({ commit }, user) {
+      try {
+        const res = await fetch(
+          `${process.env.VUE_APP_FIREBASE_AUTH_URL}?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              email: user.email,
+              password: user.password,
+              returnSecureToken: true
+            })
+          }
+        )
+        const userDB = await res.json()
+        if (userDB.error) {
+          console.error(userDB.error)
+          return
+        }
+        commit('setUser', userDB)
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   modules: {}

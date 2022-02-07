@@ -1,10 +1,13 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Option API</router-link> |
-    <router-link to="/about">Composition API</router-link> |
-    <router-link to="/counter">Counter</router-link>
+  <div class="app">
+    <div id="nav">
+      <router-link to="/">Option API</router-link>|
+      <router-link to="/about">Composition API</router-link>|
+      <router-link to="/counter">Counter</router-link> |
+      <router-link to="/countries">Countries</router-link>
+    </div>
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
 <style>

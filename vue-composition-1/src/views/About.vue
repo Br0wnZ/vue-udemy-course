@@ -1,17 +1,19 @@
 <template>
   <div class="about">
-    <h1 :style="{ 'color': color }">Counter: {{ counter }}</h1>
+    <Counter :counter="counter" :color="color"/>
     <button @click="decrease">- Decrease</button>
     <button @click="increase">+ Increase</button>
-    <hr>
-    <input type="text" v-model="text">
+    <hr />
+    <input type="text" v-model="text" />
     <p>{{ text }}</p>
   </div>
 </template>
 
 <script>
+import Counter from '@/components/Counter.vue'
 import { computed, ref } from 'vue'
 export default {
+  components: { Counter },
   setup() {
     const counter = ref(0)
     const text = ref('')

@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Countries</h1>
-    <p v-for="(countrie, index) in countries" :key="index">
-      {{ countrie.name }}
+    <p v-for="(country, index) in countries" :key="index">
+      <router-link :to="`/countries/${country.name}`">{{ country.name }}</router-link>
     </p>
   </div>
 </template>

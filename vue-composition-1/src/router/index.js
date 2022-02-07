@@ -24,6 +24,12 @@ const routes = [
     path: '/countries',
     name: 'Countries',
     component: () => import(/* webpackChunkName: "counter copy" */ '../views/Countries.vue')
+  },
+  {
+    path: '/countries/:name',
+    name: 'Country',
+    props: true,
+    component: () => import(/* webpackChunkName: "counter copy" */ '../views/Country.vue')
   }
 ]
 

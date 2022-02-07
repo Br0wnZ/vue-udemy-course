@@ -1,11 +1,15 @@
 <template>
   <div>
+    <div class="alert alert-warning" v-if="error.type === 'signup'">
+      {{ error.message }}
+    </div>
     <fieldset>
       <legend>SignUp</legend>
       <form ref="form" @submit.prevent="onSubmit">
         <div class="mb-3">
           <input
             class="form-control"
+            :class="[inputError]"
             placeholder="Your email"
             type="email"
             name
@@ -44,7 +48,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data: () => ({
     email: '',
@@ -52,6 +56,7 @@ export default {
     pass2: '',
   }),
   computed: {
+    ...mapState(['error']),
     disabled() {
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
         return true
@@ -62,12 +67,18 @@ export default {
       if (this.pass1 !== this.pass2) {
         return true
       }
+    },
+    inputError() {
+      return this.error.message === 'Email already exists' ? 'is-invalid' : ''
     }
   },
   methods: {
     ...mapActions(['signup']),
-    onSubmit() {
-      this.signup({ email: this.email, password: this.pass1 })
+    async onSubmit() {
+      await this.signup({ email: this.email, password: this.pass1 })
+      if (this.error.type === 'signup') {
+        return
+      }
       this.$refs.form.reset()
     }
   },

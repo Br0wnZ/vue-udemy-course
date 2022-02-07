@@ -13,7 +13,11 @@ export default createStore({
       number: 0
     },
     user: null,
-    isEditing: false
+    isEditing: false,
+    error: {
+      type: null,
+      message: null
+    }
   },
   getters: {
     isLogedIn(state) {
@@ -87,6 +91,14 @@ export default createStore({
     edit(state, payload) {
       state.isEditing = true
       state.task = { ...payload }
+    },
+    setError(state, payload) {
+      if (['EMAIL_NOT_FOUND', 'INVALID_PASSWORD'].includes(payload)) {
+        return (state.error = { type: 'login', message: 'Wrong credentials' })
+      }
+      if (payload === 'EMAIL_EXISTS') {
+        return (state.error = { type: 'signup', message: 'Email already exists' })
+      }
     }
   },
   actions: {
@@ -120,14 +132,17 @@ export default createStore({
         )
         const userDB = await res.json()
         if (userDB.error) {
+          commit('setError', userDB.error.message)
           return console.error(userDB.error)
         }
+        commit('setError', { type: null, message: null })
         commit('setUser', userDB)
       } catch (error) {
         console.log(error)
       }
     },
     async login({ commit }, { email, password }) {
+      commit('setError', { type: null, message: null })
       try {
         const res = await fetch(
           `${process.env.VUE_APP_FIREBASE_LOGIN_URL}?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,
@@ -138,16 +153,17 @@ export default createStore({
         )
         const userDB = await res.json()
         if (userDB.error) {
-          return console.log(error)
+          return commit('setError', userDB.error.message)
         }
         commit('setUser', userDB)
+        commit('setError', { type: null, message: null })
         router.push('/')
         localStorage.setItem('user', JSON.stringify(userDB))
       } catch (error) {
         console.log(error)
       }
     },
-    logout({commit}) {
+    logout({ commit }) {
       commit('setUser', null)
       localStorage.removeItem('user')
       router.push('/login')

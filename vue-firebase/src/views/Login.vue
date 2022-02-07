@@ -1,11 +1,15 @@
 <template>
   <div>
+    <div class="alert alert-danger" v-if="error.type === 'login'">
+      {{ error.message }}
+    </div>
     <fieldset>
       <legend>Login</legend>
       <form ref="form" @submit.prevent="onSubmit">
         <div class="mb-3">
           <input
             class="form-control"
+            :class="[inputError]"
             placeholder="Your email"
             type="email"
             name
@@ -17,6 +21,7 @@
         <div class="mb-3">
           <input
             class="form-control"
+            :class="[inputError]"
             placeholder="Password"
             type="password"
             name
@@ -33,13 +38,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data: () => ({
     email: '',
     pass1: ''
   }),
   computed: {
+    ...mapState(['error']),
     disabled() {
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
         return true
@@ -47,12 +53,18 @@ export default {
       if (this.pass1.length < 6) {
         return true
       }
+    },
+    inputError() {
+      return this.error.type === 'login' ? 'is-invalid' : ''
     }
   },
   methods: {
     ...mapActions(['login']),
-    onSubmit() {
-      this.login({ email: this.email, password: this.pass1 })
+    async onSubmit() {
+      await this.login({ email: this.email, password: this.pass1 })
+      if (this.error.type === 'login') {
+        return
+      }
       this.$refs.form.reset()
     }
   },

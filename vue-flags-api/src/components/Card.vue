@@ -1,7 +1,7 @@
 <template>
   <div class="card text-center mb-2 my-card">
-    <div class="clas-body">
-      <h5>{{ country.name.official }}</h5>
+    <div class="card-body">
+      <h5 class="card-title">{{ country.name.official }}</h5>
       <img :src="country.flags[1]" :alt="`${country.name.official} flag`" />
       <p class="card-text">
         <span

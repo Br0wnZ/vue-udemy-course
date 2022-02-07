@@ -17,17 +17,21 @@ export default createStore({
     async getCountries({ commit }) {
       try {
         const response = await fetch('https://restcountries.com/v3/all')
-        const countries = await response.json()
-        console.log('🚀 ~ file: index.js ~ line 21 ~ getCountries ~ countries', countries)
-        commit('setCountries', countries)
+        commit('setCountries', await response.json())
       } catch (error) {
         console.log(error)
       }
+    },
+    filterByRegion({ commit, state }, region) {
+      commit(
+        'setFilteredCountries',
+        state.countries.filter((country) => country.region.includes(region))
+      )
     }
   },
   getters: {
     orderedCountries: (state) =>
-      state.countries.sort((a, b) => (a.population < b.population ? 1 : -1))
+      state.filteredCountries.sort((a, b) => (a.population < b.population ? 1 : -1))
   },
   modules: {}
 })

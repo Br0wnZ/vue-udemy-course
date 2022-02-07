@@ -17,8 +17,9 @@ export default {
   setup(props) {
     const store = useStore()
     const countries = computed(() => store.getters.orderedCountries)
-    onMounted(() => {
-      store.dispatch('getCountries')
+    onMounted(async () => {
+      await store.dispatch('getCountries')
+      await store.dispatch('filterByRegion', '')
     })
 
     return { countries }

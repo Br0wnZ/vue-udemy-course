@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Counter: {{ counter}}</h1>
+    <h1 :style="{'color' : color}">Counter: {{ counter}}</h1>
     <button @click="decrease">- Decrease</button>
     <button @click="increase">+ Increase</button>
   </div>
@@ -13,6 +13,11 @@ export default {
   data: () => ({
     counter: 0
   }),
+  computed: {
+    color() {
+      return this.counter < 0 ? 'red' : 'blue'
+    }
+  },
   methods: {
     increase() {
       return this.counter++

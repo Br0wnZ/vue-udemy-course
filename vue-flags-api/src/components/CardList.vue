@@ -12,7 +12,7 @@ import { useStore } from 'vuex'
 export default {
   setup(props) {
     const store = useStore()
-    const countries = computed(() => store.state.countries)
+    const countries = computed(() => store.getters.orderedCountries)
     onMounted(() => {
       store.dispatch('getCountries')
     })

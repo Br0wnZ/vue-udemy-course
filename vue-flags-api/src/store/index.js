@@ -18,12 +18,16 @@ export default createStore({
       try {
         const response = await fetch('https://restcountries.com/v3/all')
         const countries = await response.json()
-        console.log("🚀 ~ file: index.js ~ line 21 ~ getCountries ~ countries", countries)
+        console.log('🚀 ~ file: index.js ~ line 21 ~ getCountries ~ countries', countries)
         commit('setCountries', countries)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
+  },
+  getters: {
+    orderedCountries: (state) =>
+      state.countries.sort((a, b) => (a.population < b.population ? 1 : -1))
   },
   modules: {}
 })

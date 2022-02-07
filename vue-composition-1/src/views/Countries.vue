@@ -1,37 +1,19 @@
 <template>
   <div>
     <h1>Countries</h1>
-    <p v-for="(country, index) in countries" :key="index">
+    <p v-for="(country, index) in response" :key="index">
       <router-link :to="`/countries/${country.name}`">{{ country.name }}</router-link>
     </p>
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
-  export default {
-    setup(props) {
-      const countries = ref([])
-      // onMounted(async () => {
-      //   try {
-      //     const res = await fetch('https://restcountries.com/v2/all')
-      //     countries.value = await res.json()
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
-      // }) 
-      const fecthData = async() => {
-        try {
-          const res = await fetch('api.json')
-          countries.value = await res.json()
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      fecthData()
+import { useFecth } from '../composables/useFecth'
+export default {
+  setup(props) {
+    const apiUrl = 'https://restcountries.com/v2/all'
 
-      return { countries }
-    }
+    return { ...useFecth(apiUrl) }
   }
+}
 </script>

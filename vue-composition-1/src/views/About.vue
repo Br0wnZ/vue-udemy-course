@@ -14,16 +14,13 @@
 <script>
 import Counter from '@/components/Counter.vue'
 import Button from '@/components/Button.vue'
-import { computed, ref } from 'vue'
+import { useCounter } from '../composables/useCounter'
+import { ref } from 'vue'
 export default {
   components: { Counter, Button },
   setup() {
-    const counter = ref(0)
     const text = ref('')
-    const increase = () => counter.value++
-    const decrease = () => counter.value--
-    const color = computed(() => counter.value < 0 ? 'red' : 'blue')
-    return { counter, text, increase, decrease, color }
+    return { ...useCounter(), text }
   }
 }
 </script>

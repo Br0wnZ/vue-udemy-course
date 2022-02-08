@@ -27,6 +27,12 @@ export default createStore({
         'setFilteredCountries',
         state.countries.filter((country) => country.region.includes(region))
       )
+    },
+    filterByName({ commit, state }, name) {
+      commit(
+        'setFilteredCountries',
+        state.countries.filter((country) => country.name.official.toLowerCase().includes(name.toLowerCase()))
+      )
     }
   },
   getters: {

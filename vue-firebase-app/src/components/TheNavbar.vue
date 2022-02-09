@@ -3,23 +3,19 @@
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">Firestore</router-link>
       <div class="d-flex">
-        <button class="btn btn-primary">Login</button>
-        <button class="btn btn-danger">Logout</button>
+        <button @click="signIn" class="btn btn-primary">Login</button>
+        <button @click="signOut" class="btn btn-danger">Logout</button>
       </div>
     </div>
   </nav>
 </template>
 
-<script lang="ts">
-export default {
-  setup () {
-    
+<script setup lang="ts">
+import { useUser } from "@/composables/useUser"
 
-    return {}
-  }
-}
+const { signIn, signOut } = useUser()
+
 </script>
 
 <style lang="scss" scoped>
-
 </style>

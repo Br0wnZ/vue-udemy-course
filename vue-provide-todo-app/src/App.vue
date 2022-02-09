@@ -1,10 +1,14 @@
 <template>
-  <div class="container"></div>
+  <div class="container mt-3">
+    <TasksList />
+  </div>
 </template>
 
 <script>
+import TasksList from "./components/TasksList.vue";
 export default {
-  name: 'App',
+    name: "App",
+    components: { TasksList }
 }
 </script>
 

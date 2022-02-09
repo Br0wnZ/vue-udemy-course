@@ -1,17 +1,24 @@
 <template>
   <TheNavbar />
-  <div class="container">
-    <router-view/>
+  <Spinner v-if="loading"/>
+  <div v-else class="container">
+    <router-view />
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import TheNavbar from "@/components/TheNavbar.vue";
+import Spinner from '@/components/Spinner.vue'
+import { getCurrentUser } from "./firebase";
 
-export default {
-  name: 'App',
-  components: { TheNavbar }
-}
+const loading = ref(false)
+onMounted(async() => {
+  loading.value = true
+  await getCurrentUser()
+  loading.value = false
+})
+
 
 
 </script>

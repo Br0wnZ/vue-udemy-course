@@ -15,12 +15,15 @@ export default {
   setup() {
     const tasks = inject(providers.tasks)
     const tasktext = ref('')
-    const addTask = () => tasks.value.push({
-      text: tasktext.value,
-      status: false,
-      id: Date.now()
-    })
+    const addTask = () => {
+      tasks.value.push({
+        text: tasktext.value,
+        status: false,
+        id: Date.now()
+      })
 
+      tasktext.value = ''
+    }
 
     return { tasktext, addTask }
   }

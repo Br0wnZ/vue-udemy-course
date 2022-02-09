@@ -5,7 +5,6 @@
     <div class="mt-3">
       <TaskItem v-for="(task, index) in tasks" :key="index" :task="task" />
     </div>
-
     <div class="alert alert-dark mt-3" v-if="!tasks.length">
       No pending tasks 👌
     </div>

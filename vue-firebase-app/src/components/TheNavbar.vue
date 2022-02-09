@@ -3,8 +3,10 @@
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">{{ userName }}</router-link>
       <div class="d-flex">
+        <router-link to="/crud" class="btn btn-primary mx-1" v-if="isAuthenticated">CRUD</router-link>
+        <router-link to="/profile" class="btn btn-primary mx-1" v-if="isAuthenticated">Profile</router-link>
         <button @click="signIn" class="btn btn-primary" v-if="!isAuthenticated">Login</button>
-        <button @click="signOut" class="btn btn-danger" v-if="isAuthenticated">Logout</button>
+        <button @click="signOut" class="btn btn-danger mx-1" v-else>Logout</button>
       </div>
     </div>
   </nav>

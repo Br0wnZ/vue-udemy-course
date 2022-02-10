@@ -1,7 +1,13 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <input type="text" class="form-control my-3" placeholder="Task" v-model.trim="todoText" />
-    <button class="btn btn-primary w-100" type="submit">Add Todo</button>
+    <div class="row my-3">
+      <div class="col-12 col-md-9 col-lg-9 mt-1">
+        <input type="text" class="form-control" placeholder="Task" v-model.trim="todoText" />
+      </div>
+      <div class="col-12 col-md-3 col-lg-3 mt-1">
+        <button class="btn btn-primary w-100" type="submit">Add Todo</button>
+      </div>
+    </div>
   </form>
 </template>
 

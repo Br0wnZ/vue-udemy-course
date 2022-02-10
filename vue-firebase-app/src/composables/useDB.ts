@@ -11,7 +11,7 @@ export const useDB = () => {
   const getTodos = async (): Promise<ITodo[] | IError> => {
     try {
       loading.value = true
-      const res = await todosRef.get()
+      const res = await todosRef.orderBy('date', 'desc').get()
       return res.docs.map((doc) => ({
         id: doc.id,
         ...doc.data()
@@ -28,15 +28,16 @@ export const useDB = () => {
 
   const addTodo = async (text: string): Promise<ITodo | any> => {
     try {
+      loading.value = true
       const todo = {
         text: text,
         date: timestamp(),
         status: false,
         uid: user.value?.uid
       }
-      const res = await todosRef.add(todo)
+      const { id } = await todosRef.add(todo)
       return {
-        id: res.id,
+        id,
         ...todo
       } as ITodo
     } catch (error) {
@@ -44,6 +45,8 @@ export const useDB = () => {
         error,
         res: true
       }
+    } finally {
+      loading.value = false
     }
   }
 

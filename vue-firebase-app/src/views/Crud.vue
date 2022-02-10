@@ -4,7 +4,7 @@
     <Spinner v-if="loading" />
     <TodoForm v-if="!loading" />
     <div v-if="!!todos.length">
-      <pre>{{ todos }}</pre>
+      <TodoItem v-for="(todo, index) in todos" :key="todo.id" :todo="todo" />
     </div>
     <div v-if="showError">
       <Error />
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import Spinner from '@/components/Spinner.vue'
 import TodoForm from '@/components/TodoForm.vue'
+import TodoItem from '@/components/TodoItem.vue'
 import Error from '@/components/Error.vue'
 import { useDB } from "@/composables/useDB"
 import { computed, ComputedRef, onMounted, provide, Ref, ref } from 'vue'

@@ -11,7 +11,7 @@ export const useDB = () => {
   const getTodos = async (): Promise<ITodoResponse> => {
     try {
       loading.value = true
-      const res = await todosRef.orderBy('date', 'desc').get()
+      const res = await todosRef.where('uid', '==', user.value?.uid).orderBy('date', 'desc').get()
       return {
         todos: res.docs.map((doc) => ({
           id: doc.id,

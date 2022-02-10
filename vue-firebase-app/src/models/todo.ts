@@ -6,10 +6,16 @@ export interface ITodo {
   status: boolean
   text: string
   uid: string | undefined
-  id?: string
+  id: string
 }
 
 export interface IError {
+  error: string
+  res: boolean
+}
+
+export interface ITodoResponse {
+  todos: ITodo[]
   error: string
   res: boolean
 }

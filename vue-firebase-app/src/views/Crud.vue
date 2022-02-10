@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h1 v-if="!loading && !error">Crud</h1>
     <Spinner v-if="loading" />
     <TodoForm v-if="!loading" />
     <div v-if="!!todos.length">
-      <TodoItem v-for="(todo, index) in todos" :key="todo.id" :todo="todo" />
+      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+    </div>
+    <div v-if="!todos.length && !loading" class="text-center">
+      <h3>Good Job! There are not nothing to do.</h3> 
     </div>
     <div v-if="showError">
       <Error />
@@ -22,20 +24,20 @@ import { computed, ComputedRef, onMounted, provide, Ref, ref } from 'vue'
 import { ITodo } from '@/models/todo'
 
 const { getTodos, loading } = useDB()
-const todos: Ref<ITodo[] | any> = ref<ITodo[] | any>([])
-const error: Ref<boolean> = ref(false)
+const todos: Ref<ITodo[]> = ref<ITodo[]>([])
+const error: Ref<string> = ref('')
 const showError: ComputedRef<boolean> = computed(() => !!error.value)
 
 provide('error', error)
 provide('todos', todos)
 
 onMounted(async () => {
-  todos.value = await getTodos()
-  if (todos.value.res) {
-    error.value = todos.value.error
+  const { todos: todosDb, res, error: errorDb } = await getTodos()
+  todos.value = todosDb
+  if (res) {
+    error.value = errorDb
     return
   }
 })
-
 
 </script>

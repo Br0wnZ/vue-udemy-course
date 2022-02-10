@@ -2,10 +2,10 @@
   <div class="card shadow-sm mb-2 zoom">
     <div class="card-body">
       <div class="row">
-        <div class="col-12 col-md-8 col-lg-9">
+        <div class="col-12 col-md-9 col-lg-9">
           <p class="m-0" :class="{ 'strike': todo.status }">{{ todo?.text }}</p>
         </div>
-        <div class="col-12 col-md-4 col-lg-3 text-end">
+        <div class="col-12 col-md-3 col-lg-3 text-end">
           <button
             @click="editItem(todo)"
             class="btn mx-2"

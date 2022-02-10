@@ -7,7 +7,7 @@
         </div>
         <div class="col-12 col-md-4 col-lg-3 text-end">
           <button class="btn btn-warning mx-2">Done</button>
-          <button class="btn btn-danger">Delete</button>
+          <button @click="deleteItem(todo?.id)" :disabled="loading" class="btn btn-danger">Delete</button>
         </div>
       </div>
     </div>
@@ -15,9 +15,22 @@
 </template>
 
 <script setup lang="ts">
+import { useDB } from '@/composables/useDB'
+import { ITodo } from '@/models/todo';
+import { inject, Ref } from 'vue';
+
 const props = defineProps({
   todo: Object
 })
+
+const todos: any = inject<Ref<ITodo[]>>('todos')
+const { deleteTodo, loading } = useDB()
+
+const deleteItem = async (id: string): Promise<void> => {
+  await deleteTodo(id)
+  todos.value = [...todos.value.filter((t: ITodo) => t.id !== id)]
+}
+
 </script>
 
 <style>

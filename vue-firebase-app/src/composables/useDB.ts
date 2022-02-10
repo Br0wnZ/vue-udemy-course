@@ -50,5 +50,20 @@ export const useDB = () => {
     }
   }
 
-  return { getTodos, addTodo, loading }
+  const deleteTodo = async (id: string): Promise<void | IError> => {
+    try {
+      loading.value = true
+      const res = await todosRef.doc(id).delete()
+    } catch (error) {
+      return <IError>{
+        error,
+        res: true
+      }
+      
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { getTodos, addTodo, deleteTodo, loading }
 }

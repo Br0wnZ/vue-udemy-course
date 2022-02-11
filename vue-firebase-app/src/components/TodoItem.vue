@@ -2,16 +2,20 @@
   <div class="card shadow-sm mb-2 zoom">
     <div class="card-body">
       <div class="row">
-        <div class="col-12 col-md-9 col-lg-9">
+        <div class="col-12 col-md-8 col-lg-9">
           <p class="m-0" :class="{ 'strike': todo.status }">{{ todo?.text }}</p>
         </div>
-        <div class="col-12 col-md-3 col-lg-3 text-end">
+        <div class="col-12 col-md-4 col-lg-3 text-end my-2">
           <button
             @click="editItem(todo)"
             class="btn mx-2"
-            :class="{'btn-success': todo.status, 'btn-warning': !todo.status}"
-          >{{ todo.status ? 'Done' : 'Pending' }}</button>
-          <button @click="deleteItem(todo.id)" :disabled="loading" class="btn btn-danger">Delete</button>
+            :class="{ 'btn-success': todo.status, 'btn-warning': !todo.status }"
+          >
+            <SvgIcon :taskStatus="todo.status ? 'undo' : 'done'" />
+          </button>
+          <button @click="deleteItem(todo.id)" :disabled="loading" class="btn btn-danger">
+            <SvgIcon :taskStatus="'trash'" />
+          </button>
         </div>
       </div>
     </div>
@@ -22,6 +26,7 @@
 import { useDB } from '@/composables/useDB'
 import { IError, ITodo } from '@/models/todo';
 import { inject, PropType, Ref } from 'vue';
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const props = defineProps({
   todo: {

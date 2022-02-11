@@ -5,6 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <!-- Metadata for PWA -->
+    <!-- Android statusbar color -->
+    <meta name="theme-color" content="#212529" />
+    <!-- SEO Optimization -->
+    <meta name="MobileOptimize" content="width" />
+    <meta name="HandheldFriendly" content="true" />
+    <!-- IOS statusbar color -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-app-status-bar-style" content="black-translucent" />
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href=".public/img/icons/favicon-16x16.png" type="image/png" />
+    <link rel="apple-touch-icon" href=".public/img/icons/favicon-16x16.png" />
+    <link rel="apple-touch-startup-image" href=".public/img/icons/favicon-16x16.png" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="./manifest.json" />
     <title>Vue Todo App</title>
   </head>
   <body>
@@ -16,5 +33,6 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script src="./load.js"></script>
   </body>
 </html>

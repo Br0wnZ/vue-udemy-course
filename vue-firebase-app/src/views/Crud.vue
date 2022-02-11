@@ -36,15 +36,14 @@ import TodoForm from '@/components/TodoForm.vue'
 import TodoItem from '@/components/TodoItem.vue'
 import Error from '@/components/Error.vue'
 import { useDB } from "@/composables/useDB"
-import { computed, ComputedRef, onMounted, provide, Ref, ref } from 'vue'
+import { computed, ComputedRef, inject, onMounted, provide, Ref, ref } from 'vue'
 import { ITodo } from '@/models/todo'
 
 const { getTodos, loading } = useDB()
 const todos: Ref<ITodo[]> = ref<ITodo[]>([])
 const error: Ref<string> = ref('')
 const showError: ComputedRef<boolean> = computed(() => !!error.value)
-const userAgent = navigator.userAgent.toLowerCase();
-const isMobile = ('ontouchstart' in document.documentElement && /mobi/i.test(userAgent));
+const isMobile = inject<boolean>('isMobile')
 
 provide('error', error)
 provide('todos', todos)

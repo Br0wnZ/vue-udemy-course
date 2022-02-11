@@ -1,5 +1,5 @@
 <template>
-<div class="d-flex justify-content-center mt-2">
+<div class="d-flex justify-content-center mt-5">
   <div class="lds-ripple">
     <div></div>
     <div></div>
@@ -8,25 +8,18 @@
 </div>
 </template>
 
-<script>
-export default {
-  setup() {
-
-
-    return {}
-  }
-}
+<script setup lang="ts">
 </script>
 
 <style scoped>
 .lds-ripple {
-  /* display: inline-block; */
-  /* position: relative; */
+  display: inline-block;
+  position: relative;
   width: 80px;
   height: 80px;
 }
 .lds-ripple div {
-  /* position: absolute; */
+  position: absolute;
   border: 4px solid rgb(51, 51, 51);
   opacity: 1;
   border-radius: 50%;

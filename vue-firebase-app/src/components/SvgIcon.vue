@@ -1,7 +1,7 @@
 <template>
   <div>
     <svg
-      v-if="taskStatus === 'done'"
+      v-if="taskStatus === TODO_STATUS.done"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"
@@ -15,7 +15,7 @@
       />
     </svg>
     <svg
-      v-if="taskStatus === 'undo'"
+      v-if="taskStatus === TODO_STATUS.undo"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"
@@ -32,7 +32,7 @@
       />
     </svg>
     <svg
-      v-if="taskStatus === 'trash'"
+      v-if="taskStatus === TODO_STATUS.trash"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"
@@ -52,6 +52,7 @@
 </template>
 
 <script setup lang="ts">
+import { TODO_STATUS } from '@/utils/consts'
 
 const props = defineProps({
   taskStatus: {

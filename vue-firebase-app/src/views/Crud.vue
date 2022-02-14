@@ -31,30 +31,17 @@
 </template>
 
 <script setup lang="ts">
-import Spinner from '@/components/Spinner.vue'
-import TodoForm from '@/components/TodoForm.vue'
-import TodoItem from '@/components/TodoItem.vue'
-import Error from '@/components/Error.vue'
+import { computed, ComputedRef, inject, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useTodoStore } from '@/stores/useTodo'
+import { TodoForm, TodoItem, Spinner, Error} from '@/components/index'
 import { useDB } from "@/composables/useDB"
-import { computed, ComputedRef, inject, onMounted, provide, Ref, ref } from 'vue'
-import { ITodo } from '@/models/todo'
 
+const { todos, error } = storeToRefs(useTodoStore())
 const { getTodos, loading } = useDB()
-const todos: Ref<ITodo[]> = ref<ITodo[]>([])
-const error: Ref<string> = ref('')
 const showError: ComputedRef<boolean> = computed(() => !!error.value)
 const isMobile = inject<boolean>('isMobile')
 
-provide('error', error)
-provide('todos', todos)
-
-onMounted(async () => {
-  const { todos: todosDb, res, error: errorDb } = await getTodos()
-  todos.value = todosDb
-  if (res) {
-    error.value = errorDb
-    return
-  }
-})
+onMounted(async () => await getTodos())
 
 </script>

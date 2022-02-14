@@ -4,8 +4,9 @@ import { getCurrentUser } from '@/firebase'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+    name: 'ToDos',
+    component: () => import(/* webpackChunkName: "crud" */ '../views/Crud.vue'),
+    meta: { protected: true }
   },
   {
     path: '/profile',
@@ -27,7 +28,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
-
   !to.meta.protected 
     ? next() 
     : await getCurrentUser() 

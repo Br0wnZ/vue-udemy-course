@@ -13,7 +13,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <router-link to="/crud" class="navbar-brand">
-        <img class="d-inline-block align-text-top" src="../../public/img/icons/favicon-32x32.png" />
+        <img
+          class="d-inline-block align-text-top"
+          src="../../public/img/icons/android-chrome-512x512.png"
+          alt="navbar image"
+          width="30"
+          height="30"
+        />
         <span class="ms-3" v-if="!isMobile">{{ userName }}</span>
       </router-link>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">

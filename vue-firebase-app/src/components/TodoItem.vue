@@ -9,6 +9,7 @@
           <button
             @click="editItem(todo)"
             class="btn mx-2"
+            :disabled="loading"
             :class="{ 'btn-success': todo.status, 'btn-warning': !todo.status }"
           >
             <SvgIcon :taskStatus="todo.status ? 'undo' : 'done'" />

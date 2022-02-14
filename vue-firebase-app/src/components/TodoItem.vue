@@ -12,10 +12,10 @@
             :disabled="loading"
             :class="{ 'btn-success': todo.status, 'btn-warning': !todo.status }"
           >
-            <SvgIcon :taskStatus="todo.status ? 'undo' : 'done'" />
+            <SvgIcon :taskStatus="todo.status ? TODO_STATUS.undo : TODO_STATUS.done" />
           </button>
           <button @click="deleteItem(todo.id)" :disabled="loading" class="btn btn-danger">
-            <SvgIcon :taskStatus="'trash'" />
+            <SvgIcon :taskStatus="TODO_STATUS.trash" />
           </button>
         </div>
       </div>
@@ -24,38 +24,25 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue';
 import { useDB } from '@/composables/useDB'
-import { IError, ITodo } from '@/models/todo';
-import { inject, PropType, Ref } from 'vue';
+import { ITodo } from '@/models/todo';
 import SvgIcon from '@/components/SvgIcon.vue'
+import { TODO_STATUS } from '@/utils/consts'
 
-const props = defineProps({
+defineProps({
   todo: {
     type: Object as PropType<ITodo>,
     required: true
   }
 })
 
-const todos: Ref<ITodo[]> | any = inject<Ref<ITodo[] | any>>('todos')
-const error: any = inject<Ref<boolean>>('error')
 const { deleteTodo, editTodo, loading } = useDB()
 
-const deleteItem = async (id: string): Promise<void> => {
-  await deleteTodo(id)
-  todos.value = [...todos.value.filter((t: ITodo) => t.id !== id)]
-}
+const deleteItem = async (id: string): Promise<void> => await deleteTodo(id)
 
-const editItem = async (todo: ITodo) => {
-  const i = todos.value.indexOf(todo)
-  const res: IError = await editTodo(todo)
-  if (res.res) {
-    error.value = res.error
-    return
-  }
-  todo.status = !todo.status
-  todos.value[i] = { ...todo }
+const editItem = async (todo: ITodo) => await editTodo(todo)
 
-}
 
 </script>
 

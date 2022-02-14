@@ -9,13 +9,4 @@ export interface ITodo {
   id: string
 }
 
-export interface IError {
-  error: string
-  res: boolean
-}
 
-export interface ITodoResponse {
-  todos: ITodo[]
-  error: string
-  res: boolean
-}
